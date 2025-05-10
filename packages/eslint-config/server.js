@@ -1,34 +1,35 @@
-const { resolve } = require("node:path");
-  const project = resolve(process.cwd(), "tsconfig.json");
+const {resolve} = require("node:path");
+const project = resolve(process.cwd(), "tsconfig.json");
 
-  module.exports = {
+module.exports = {
     extends: [
-      "eslint:recommended",
-      "plugin:@typescript-eslint/recommended"
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:prettier/recommended"
     ],
     env: {
-      node: true,
-      es6: true,
+        node: true,
+        es6: true,
     },
     parser: "@typescript-eslint/parser",
     parserOptions: {
-      ecmaVersion: "latest",
-      sourceType: "module",
-      project: [project],
+        ecmaVersion: "latest",
+        sourceType: "module",
+        project: [project],
     },
     settings: {
-      "import/resolver": {
-        typescript: {
-          project,
+        "import/resolver": {
+            typescript: {
+                project,
+            },
         },
-      },
     },
     overrides: [
-      {
-        files: ["**/__tests__/**/*"],
-        env: {
-          jest: true,
+        {
+            files: ["**/__tests__/**/*"],
+            env: {
+                jest: true,
+            },
         },
-      },
     ],
-  };
+};
