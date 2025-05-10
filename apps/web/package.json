@@ -6,6 +6,7 @@
     "build": "next build",
     "dev": "next dev",
     "lint": "eslint . --max-warnings 0",
+    "type-check": "yarn tsc --noEmit",
     "start": "next start"
   },
   "dependencies": {
