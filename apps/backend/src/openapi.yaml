@@ -1,0 +1,74 @@
+openapi: 3.1.0
+info:
+  title: Musiversal Song Library API
+  version: 1.0.0
+
+paths:
+  /songs:
+    get:
+      summary: Get list of songs
+      operationId: getSongs
+      responses:
+        '200':
+          description: List of songs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Song'
+    post:
+      summary: Add a new song
+      operationId: addSong
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewSong'
+      responses:
+        '201':
+          description: Song created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Song'
+  /songs/{id}:
+    delete:
+      summary: Delete a song by ID
+      operationId: deleteSong
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Song deleted
+
+components:
+  schemas:
+    Song:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        artist:
+          type: string
+      required:
+        - id
+        - name
+        - artist
+    NewSong:
+      type: object
+      properties:
+        name:
+          type: string
+        artist:
+          type: string
+      required:
+        - name
+        - artist
