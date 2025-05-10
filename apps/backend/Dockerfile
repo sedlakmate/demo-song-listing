@@ -1,30 +1,41 @@
-# ---- base image used by every stage ----
+# ---- Base image ----
 FROM node:22-alpine AS base
 WORKDIR /app
 RUN apk add --no-cache libc6-compat
 
+# ---- Builder for pruning and installing ----
 FROM base AS builder
 RUN yarn global add turbo
 COPY . .
 RUN turbo prune backend --docker
 
 FROM base AS installer
+WORKDIR /app
 COPY --from=builder /app/out/json/ .
 RUN yarn install
 COPY --from=builder /app/out/full/ .
 
-FROM base AS dev
-ENV NODE_ENV=development
-WORKDIR /app
-# copy the *un‑pruned* repo so nodemon sees the .ts files
-COPY . .
-# install deps once (kept in the layer cache)
-RUN yarn install
-ENV CHOKIDAR_USEPOLLING=true
-CMD ["yarn","workspace","backend","dev"]
+# Fix write permissions
+RUN chmod -R 777 /app/packages/logger
 
+# Build in order
+RUN yarn workspace @repo/logger build
+RUN yarn workspace backend build
+
+
+# ---- Dev mode (used for local development with volumes) ----
+FROM base AS dev
+WORKDIR /app
+COPY . .
+RUN yarn install
+ENV NODE_ENV=development
+ENV CHOKIDAR_USEPOLLING=true
+CMD ["yarn", "workspace", "backend", "dev"]
+
+# ---- Prod runner ----
 FROM base AS runner
 WORKDIR /app
+ENV NODE_ENV=production
 COPY --from=installer /app .
 USER 1001
-CMD ["node","apps/backend/dist/index.js"]
+CMD ["node", "apps/backend/dist/index.js"]
