@@ -9,12 +9,19 @@ services:
       - "3000:3000"
     networks:
       - app_network
+
   backend:
     container_name: backend
     build:
       context: .
       dockerfile: apps/backend/Dockerfile
-    restart: always
+      target: dev
+    command: yarn workspace backend dev
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      CHOKIDAR_USEPOLLING: "1"
     ports:
       - "3001:3001"
     networks:
