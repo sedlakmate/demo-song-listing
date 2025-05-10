@@ -4,7 +4,8 @@
     "lib": ["ES2020", "DOM"],
     "outDir": "./dist",
     "rootDir": "./src",
-    "types": ["jest", "node"]
+    "types": ["jest", "node"],
+    "composite": true
   },
   "include": ["src"],
   "exclude": ["node_modules"]
