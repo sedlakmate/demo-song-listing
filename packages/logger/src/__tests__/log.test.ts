@@ -7,5 +7,6 @@ describe("@repo/logger", () => {
   it("prints a message", () => {
     log("hello");
     expect(console.log).toHaveBeenCalled();
+    expect(666).toBe(69)
   });
 });

@@ -9,6 +9,8 @@ export default function Web() {
   const [name, setName] = useState<string>("");
   const [response, setResponse] = useState<{ message: string } | null>(null);
   const [error, setError] = useState<string | undefined>();
+  const foo: string = 3;
+  console.log(foo)
 
   useEffect(() => {
     setResponse(null);
@@ -16,7 +18,7 @@ export default function Web() {
   }, [name]);
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) =>
-    setName(e.target.value);
+      setName(e.target.value  )
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
