@@ -15,7 +15,7 @@
     "test": "jest"
   },
   "jest": {
-    "preset": "@repo/jest-presets/node"
+    "preset": "@repo/jest-presets/dist"
   },
   "devDependencies": {
     "@jest/globals": "^29.7.0",

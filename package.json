@@ -16,12 +16,13 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "prettier": "^3.2.5",
+    "eslint-plugin-prettier": "^5.4.0",
+    "prettier": "^3.5.3",
     "turbo": "^2.5.3"
   },
   "packageManager": "yarn@1.22.19",
   "engines": {
-    "node": ">=14.0.0",
-    "npm": ">=7.0.0"
+    "node": ">=20.0.0",
+    "npm": ">=10.0.0"
   }
 }
