@@ -12,6 +12,7 @@
     "clean": "rm -rf dist",
     "dev": "tsc -w",
     "lint": "eslint \"src/**/*.ts*\" --max-warnings 0",
+    "type-check": "yarn tsc --noEmit",
     "test": "jest"
   },
   "jest": {
