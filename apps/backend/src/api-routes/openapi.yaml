@@ -7,7 +7,7 @@ paths:
   /songs:
     get:
       summary: Get list of songs
-      operationId: getSongs
+      operationId: get
       responses:
         '200':
           description: List of songs
@@ -17,9 +17,10 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Song'
+
     post:
       summary: Add a new song
-      operationId: addSong
+      operationId: post
       requestBody:
         required: true
         content:
@@ -33,10 +34,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Song'
+
   /songs/{id}:
     delete:
       summary: Delete a song by ID
-      operationId: deleteSong
+      operationId: delete
       parameters:
         - in: path
           name: id
