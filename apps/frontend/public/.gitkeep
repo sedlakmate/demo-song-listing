@@ -2,6 +2,6 @@ This public directory can be used to store any static content, see:
 
     https://nextjs.org/docs/basic-features/static-file-serving
 
-To remove this directory, also remove the following line from the web `Dockerfile`:
+To remove this directory, also remove the following line from the frontend `Dockerfile`:
 
     COPY --from=installer --chown=nextjs:nodejs /app/apps/frontend/public ./apps/frontend/public

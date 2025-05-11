@@ -6,9 +6,17 @@ import fs from "fs";
 import path from "path";
 import YAML from "yaml";
 import swaggerUi from "swagger-ui-express";
+import { log } from "@repo/logger";
 
-const file = fs.readFileSync(path.join(__dirname, "openapi.yaml"), "utf-8");
-const apiDoc = YAML.parse(file);
+function getApiDoc(fileName: string) {
+  try {
+    const file = fs.readFileSync(path.join(__dirname, fileName), "utf-8");
+    return YAML.parse(file);
+  } catch (error) {
+    log("Error loading API documentation", error);
+    return {};
+  }
+}
 
 export const createServer = (): Express => {
   const app = express();
@@ -18,7 +26,11 @@ export const createServer = (): Express => {
     .use(urlencoded({ extended: true }))
     .use(json())
     .use(cors())
-    .use("/api-docs", swaggerUi.serve, swaggerUi.setup(apiDoc))
+    .use(
+      "/api-docs",
+      swaggerUi.serve,
+      swaggerUi.setup(getApiDoc("openapi.yaml")),
+    )
     .get("/message/:name", (req, res) => {
       res.json({ message: `hello ${req.params.name}` });
     })
