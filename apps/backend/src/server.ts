@@ -24,7 +24,7 @@ export const createServer = async (): Promise<Express> => {
     .use(cors())
     .use("/api-docs", swaggerUi.serve, swaggerUi.setup(apiDoc));
 
-  // Initialize OpenAPI routes - it should happend after the middlewares but before the routes
+  // Initialize OpenAPI routes - it should happen after the middlewares but before the routes
   try {
     await initialize({
       app,
