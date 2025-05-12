@@ -14,6 +14,7 @@ WORKDIR /app
 COPY --from=builder /app/out/json/ .
 RUN yarn install
 COPY --from=builder /app/out/full/ .
+RUN rm -rf /app/uploads && mkdir -p /app/uploads && chmod -R 777 /app/uploads
 
 # Fix write permissions
 RUN chmod -R 777 /app/packages/logger
