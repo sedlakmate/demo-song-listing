@@ -1,7 +1,7 @@
 import type { Song } from '../../types/song';
 import Image from 'next/image';
 import { sanitizeUrl } from '../../utils/sanitize-url';
-import { SongActionsMenu } from './songActionsMenu';
+import { SongActionsMenu } from './SongActionsMenu';
 
 const host = process.env.NEXT_PUBLIC_API_HOST || 'http://localhost:3001';
 
