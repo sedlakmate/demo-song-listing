@@ -21,18 +21,20 @@ export default function HomePage() {
   if (loading) return <div className="text-center mt-10">Loading songs...</div>;
 
   return (
-    <div>
-      <h1 className="text-3xl font-bold text-primary mb-5">List of songs</h1>
-      <div className="carousel carousel-vertical w-full p-4 space-x-4 bg-neutral rounded-box">
+    <div className="flex flex-col h-full">
+      <h1 className="text-3xl font-bold text-primary mb-2 p-4">
+        List of songs
+      </h1>
+      <div className="carousel carousel-vertical flex-1 overflow-y-auto px-4 space-y-4">
         {songs.map((song) => (
-          <div key={song.id} className="carousel-item w-full max-w-2xl m-2">
-            <div className="card card-side bg-base-100 shadow-xl w-full">
+          <div key={song.id} className="carousel-item flex justify-center">
+            <div className="card card-side bg-base-200 shadow-xl w-full max-w-3xl">
               <figure className="w-1/3 min-w-[100px]">
                 <Image
                   src={sanitizeUrl(`${host}/${song.imageUrl}`)}
                   alt={song.name}
-                  width={100}
-                  height={100}
+                  width={300}
+                  height={300}
                   unoptimized
                   className="object-cover w-full h-full"
                 />

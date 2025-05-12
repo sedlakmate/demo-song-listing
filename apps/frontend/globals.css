@@ -1,11 +1,12 @@
 @import 'tailwindcss';
+
 @plugin "daisyui" {
-	/*themes: light --default, dark;*/
-	themes: all;
+    /*themes: light --default, dark;*/
+    themes: all;
 }
 @tailwind utilities;
 
 .active {
-	font-weight: bold;
-	color: var(--color-primary);
+    font-weight: bold;
+    color: var(--color-primary);
 }
