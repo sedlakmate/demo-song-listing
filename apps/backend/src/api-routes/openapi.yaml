@@ -75,7 +75,7 @@ components:
       required:
         - name
         - artist
-#        - image # express-openapi validates the request body against the OpenAPI schema before multer populates req.file
+      #        - image # express-openapi validates the request body against the OpenAPI schema before multer populates req.file
       additionalProperties: false
       properties:
         name:
