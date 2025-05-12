@@ -10,7 +10,7 @@ import { prepareUploadsDir } from "./utils/init-uploads";
 import { getApiDoc, multerErrorHandler, upload } from "./utils/openapi-helpers";
 
 export const createServer = async (): Promise<Express> => {
-  const uploadsDir = path.join(__dirname, "../uploads");
+  const uploadsDir = path.resolve("uploads");
   prepareUploadsDir(uploadsDir);
 
   const apiDoc = getApiDoc(path.join(__dirname, "./api-routes/openapi.yaml"));
