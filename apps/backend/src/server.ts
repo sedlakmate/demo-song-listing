@@ -37,6 +37,14 @@ export const createServer = async (): Promise<Express> => {
       app,
       apiDoc,
       paths: path.join(__dirname, "../dist/api-routes/paths"),
+      validateApiDoc: true,
+      errorMiddleware: (err, req, res, next) => {
+        log("Error in OpenAPI middleware", err);
+        if (err.status && err.errors) {
+          res.status(err.status).json({ errors: err.errors });
+        }
+        next(err);
+      },
     });
   } catch (error) {
     log(

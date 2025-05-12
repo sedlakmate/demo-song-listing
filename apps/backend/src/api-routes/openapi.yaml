@@ -64,6 +64,8 @@ components:
         - id
         - name
         - artist
+      additionalProperties: false
+
     NewSong:
       type: object
       properties:
@@ -74,3 +76,4 @@ components:
       required:
         - name
         - artist
+      additionalProperties: false
