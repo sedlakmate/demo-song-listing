@@ -6,9 +6,9 @@ import { Header } from "./components/header";
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" data-theme="abyss">
-      <body className="min-h-screen flex flex-col">
+      <body className="h-screen flex flex-col overflow-hidden">
         <Header />
-        <main className="flex-grow container mx-auto p-4">{children}</main>
+        <main className="flex-1 overflow-hidden">{children}</main>
         <Footer />
       </body>
     </html>
