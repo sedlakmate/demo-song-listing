@@ -1,6 +1,6 @@
-"use client";
-import React, { useEffect, useState } from "react";
-import { DEFAULT_THEME as defaultTheme, themes } from "./theme-data";
+'use client';
+import React, { useEffect, useState } from 'react';
+import { DEFAULT_THEME as defaultTheme, themes } from './theme-data';
 
 interface ThemeSelectorProps {
   justifyEnd?: boolean;
@@ -11,7 +11,7 @@ const ThemeSelector: React.FC<ThemeSelectorProps> = ({ justifyEnd }) => {
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
-    const theme = urlParams.get("theme") || defaultTheme;
+    const theme = urlParams.get('theme') || defaultTheme;
     setActiveTheme(theme);
     document.body.dataset.theme = theme;
   }, []);
@@ -22,9 +22,7 @@ const ThemeSelector: React.FC<ThemeSelectorProps> = ({ justifyEnd }) => {
   };
 
   return (
-    <div
-      className={`dropdown ${justifyEnd ? "dropdown-end" : "dropdown-start"}`}
-    >
+    <div className={`dropdown ${justifyEnd ? 'dropdown-end' : 'dropdown-start'}`}>
       <div tabIndex={0} role="button" className="btn m-1">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -52,7 +50,7 @@ const ThemeSelector: React.FC<ThemeSelectorProps> = ({ justifyEnd }) => {
       </div>
       <ul className="dropdown-content bg-base-300 rounded-box z-1 p-2 shadow-2xl">
         {themes.map((theme) => (
-          <li key={theme} className={theme === activeTheme ? "active" : ""}>
+          <li key={theme} className={theme === activeTheme ? 'active' : ''}>
             <input
               type="radio"
               name="theme-dropdown"

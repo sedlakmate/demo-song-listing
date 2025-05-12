@@ -1,13 +1,13 @@
-const path = require("path");
+const path = require('path');
 
-const apiHost = process.env.NEXT_PUBLIC_API_HOST || "http://localhost:3001";
+const apiHost = process.env.NEXT_PUBLIC_API_HOST || 'http://localhost:3001';
 
 module.exports = {
   reactStrictMode: true,
-  transpilePackages: ["@repo/ui"],
-  output: "standalone",
+  transpilePackages: ['@repo/ui'],
+  output: 'standalone',
   experimental: {
-    outputFileTracingRoot: path.join(__dirname, "../../"),
+    outputFileTracingRoot: path.join(__dirname, '../../'),
   },
   images: {
     domains: [apiHost],

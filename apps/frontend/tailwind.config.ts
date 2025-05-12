@@ -1,17 +1,14 @@
-import type { Config } from "tailwindcss";
+import type { Config } from 'tailwindcss';
 
 const config: Config = {
-  content: [
-    "./src/**/*.{js,ts,jsx,tsx}",
-    "../../packages/ui/**/*.{js,ts,jsx,tsx}",
-  ],
+  content: ['./src/**/*.{js,ts,jsx,tsx}', '../../packages/ui/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {},
   },
-  plugins: [require("daisyui")],
+  plugins: [require('daisyui')],
   // @ts-expect-error: daisyui is injected by the plugin
   daisyui: {
-    themes: ["light", "dark", "abyss"], // 'cupcake', 'bumblebee', etc.
+    themes: ['light', 'dark', 'abyss'], // 'cupcake', 'bumblebee', etc.
   },
 };
 export default config;

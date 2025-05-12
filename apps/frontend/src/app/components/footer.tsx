@@ -1,11 +1,11 @@
-const API_HOST = process.env.NEXT_PUBLIC_API_HOST || "http://localhost:3001";
+const API_HOST = process.env.NEXT_PUBLIC_API_HOST || 'http://localhost:3001';
 
 export function Footer() {
   return (
-    <footer className="footer p-4 bg-base-200 flex flex-row justify-start items-center text-primary">
-      <span className="whitespace-nowrap justify-start flex-grow">
+    <footer className="footer bg-base-200 text-primary flex flex-row items-center justify-start p-4">
+      <span className="flex-grow justify-start whitespace-nowrap">
         <a
-          href={API_HOST + "/api-docs"}
+          href={API_HOST + '/api-docs'}
           className="link link-hover"
           target="_blank"
           rel="noopener noreferrer"
@@ -13,9 +13,7 @@ export function Footer() {
           API description
         </a>
       </span>
-      <span className="whitespace-nowrap text-base-content">
-        &copy; 2025 Máté Sedlák
-      </span>
+      <span className="text-base-content whitespace-nowrap">&copy; 2025 Máté Sedlák</span>
       <span>
         <a
           href="https://mate-sedlak.com"
