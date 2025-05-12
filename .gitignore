@@ -61,3 +61,4 @@ yarn-error.log*
 # turbo
 .turbo
 /packages/logger/tsconfig.tsbuildinfo
+/apps/backend/uploads/**/*

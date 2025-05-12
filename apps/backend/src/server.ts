@@ -1,5 +1,9 @@
 import { json, urlencoded } from "body-parser";
-import express, { type Express } from "express";
+import express, {
+  ErrorRequestHandler,
+  Request as MulterRequest,
+  type Express,
+} from "express";
 import morgan from "morgan";
 import YAML from "yaml";
 import cors from "cors";
@@ -8,6 +12,7 @@ import { initialize } from "express-openapi";
 import * as fs from "node:fs";
 import path from "node:path";
 import { log } from "@repo/logger";
+import multer, { FileFilterCallback } from "multer";
 
 function getApiDoc(fileName: string) {
   try {
@@ -21,8 +26,34 @@ function getApiDoc(fileName: string) {
 
 export const createServer = async (): Promise<Express> => {
   const apiDoc = getApiDoc("./api-routes/openapi.yaml");
-
   const app = express();
+
+  // File size and type validation
+  const upload = multer({
+    dest: "uploads/",
+    limits: {
+      fileSize: 2 * 1024 * 1024, // 2MB in bytes
+    },
+    fileFilter: (
+      req: MulterRequest,
+      file: Express.Multer.File,
+      cb: FileFilterCallback,
+    ) => {
+      if (!file.mimetype.startsWith("image/")) {
+        return cb(new Error("Only image files are allowed"));
+      }
+      cb(null, true);
+    },
+  });
+
+  const multerErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
+    if (err.code === "LIMIT_FILE_SIZE") {
+      res
+        .status(413)
+        .json({ message: "Image file is too large. Max size is 2MB." });
+    }
+    next(err);
+  };
 
   app
     .disable("x-powered-by")
@@ -38,6 +69,9 @@ export const createServer = async (): Promise<Express> => {
       apiDoc,
       paths: path.join(__dirname, "../dist/api-routes/paths"),
       validateApiDoc: true,
+      consumesMiddleware: {
+        "multipart/form-data": upload.single("image"),
+      },
       errorMiddleware: (err, req, res, next) => {
         log("Error in OpenAPI middleware", err);
         if (err.status && err.errors) {
@@ -56,6 +90,8 @@ export const createServer = async (): Promise<Express> => {
   app.get("/status", (req, res) => {
     res.status(200).json({ ok: true });
   });
+
+  app.use(multerErrorHandler);
 
   return app;
 };
