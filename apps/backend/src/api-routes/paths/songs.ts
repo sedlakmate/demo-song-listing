@@ -9,11 +9,17 @@ module.exports = {
 
   async post(req: Request, res: Response) {
     const { name, artist } = req.body;
-    if (!name || !artist) {
-      return res.status(400).json({ message: "Name and artist are required." });
+    const file = req.file;
+
+    if (!name || !artist || !file) {
+      return res
+        .status(400)
+        .json({ message: "Name, artist, and image are required." });
     }
 
-    const newSong = SongService.create(name, artist);
+    const imageUrl = `/uploads/${file.filename}`;
+    const newSong = SongService.create({ name, artist, imageUrl });
+
     res.status(201).json(newSong);
   },
 };

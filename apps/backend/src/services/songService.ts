@@ -5,7 +5,7 @@ export interface Song {
   id: string;
   name: string;
   artist: string;
-  imageUrl?: string;
+  imageUrl: string;
 }
 
 // TODO: use persistent storage like a database
@@ -17,8 +17,8 @@ export const SongService = {
     return songs;
   },
 
-  create: (name: string, artist: string, imageUrl?: string): Song => {
-    const newSong: Song = { id: uuidv4(), name, artist, imageUrl };
+  create: (song: Omit<Song, "id">): Song => {
+    const newSong: Song = { ...song, id: uuidv4() };
     songs.push(newSong);
     return newSong;
   },

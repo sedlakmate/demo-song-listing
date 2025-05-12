@@ -1,8 +1,7 @@
-openapi: 3.1.0
+openapi: 3.0.0
 info:
   title: Musiversal Song Library API
   version: 1.0.0
-
 paths:
   /songs:
     get:
@@ -17,6 +16,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Song'
+                additionalProperties: false
 
     post:
       summary: Add a new song
@@ -24,7 +24,7 @@ paths:
       requestBody:
         required: true
         content:
-          application/json:
+          multipart/form-data:
             schema:
               $ref: '#/components/schemas/NewSong'
       responses:
@@ -40,11 +40,12 @@ paths:
       summary: Delete a song by ID
       operationId: delete
       parameters:
-        - in: path
-          name: id
+        - name: id
+          in: path
           required: true
           schema:
             type: string
+            additionalProperties: false
       responses:
         '204':
           description: Song deleted
@@ -53,6 +54,12 @@ components:
   schemas:
     Song:
       type: object
+      required:
+        - id
+        - name
+        - artist
+        - imageUrl
+      additionalProperties: false
       properties:
         id:
           type: string
@@ -60,20 +67,21 @@ components:
           type: string
         artist:
           type: string
-      required:
-        - id
-        - name
-        - artist
-      additionalProperties: false
+        imageUrl:
+          type: string
 
     NewSong:
       type: object
+      required:
+        - name
+        - artist
+#        - image # express-openapi validates the request body against the OpenAPI schema before multer populates req.file
+      additionalProperties: false
       properties:
         name:
           type: string
         artist:
           type: string
-      required:
-        - name
-        - artist
-      additionalProperties: false
+        image:
+          type: string
+          format: binary
