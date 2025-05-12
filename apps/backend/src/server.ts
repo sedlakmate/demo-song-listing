@@ -1,59 +1,20 @@
 import { json, urlencoded } from "body-parser";
-import express, {
-  ErrorRequestHandler,
-  Request as MulterRequest,
-  type Express,
-} from "express";
+import express, { type Express } from "express";
 import morgan from "morgan";
-import YAML from "yaml";
 import cors from "cors";
 import swaggerUi from "swagger-ui-express";
 import { initialize } from "express-openapi";
-import * as fs from "node:fs";
 import path from "node:path";
 import { log } from "@repo/logger";
-import multer, { FileFilterCallback } from "multer";
-
-function getApiDoc(fileName: string) {
-  try {
-    const file = fs.readFileSync(path.join(__dirname, fileName), "utf-8");
-    return YAML.parse(file);
-  } catch (error) {
-    log("Error loading API documentation", error);
-    return {};
-  }
-}
+import { prepareUploadsDir } from "./utils/init-uploads";
+import { getApiDoc, multerErrorHandler, upload } from "./utils/openapi-helpers";
 
 export const createServer = async (): Promise<Express> => {
-  const apiDoc = getApiDoc("./api-routes/openapi.yaml");
+  const uploadsDir = path.join(__dirname, "../uploads");
+  prepareUploadsDir(uploadsDir);
+
+  const apiDoc = getApiDoc(path.join(__dirname, "./api-routes/openapi.yaml"));
   const app = express();
-
-  // File size and type validation
-  const upload = multer({
-    dest: "uploads/",
-    limits: {
-      fileSize: 2 * 1024 * 1024, // 2MB in bytes
-    },
-    fileFilter: (
-      req: MulterRequest,
-      file: Express.Multer.File,
-      cb: FileFilterCallback,
-    ) => {
-      if (!file.mimetype.startsWith("image/")) {
-        return cb(new Error("Only image files are allowed"));
-      }
-      cb(null, true);
-    },
-  });
-
-  const multerErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
-    if (err.code === "LIMIT_FILE_SIZE") {
-      res
-        .status(413)
-        .json({ message: "Image file is too large. Max size is 2MB." });
-    }
-    next(err);
-  };
 
   app
     .disable("x-powered-by")
@@ -63,6 +24,7 @@ export const createServer = async (): Promise<Express> => {
     .use(cors())
     .use("/api-docs", swaggerUi.serve, swaggerUi.setup(apiDoc));
 
+  // Initialize OpenAPI routes - it should happend after the middlewares but before the routes
   try {
     await initialize({
       app,
@@ -87,11 +49,12 @@ export const createServer = async (): Promise<Express> => {
     );
   }
 
-  app.get("/status", (req, res) => {
-    res.status(200).json({ ok: true });
-  });
-
-  app.use(multerErrorHandler);
+  app
+    .get("/status", (req, res) => {
+      res.status(200).json({ ok: true });
+    })
+    .use("/uploads", express.static(uploadsDir))
+    .use(multerErrorHandler);
 
   return app;
 };
