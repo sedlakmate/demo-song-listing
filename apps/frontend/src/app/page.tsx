@@ -18,7 +18,12 @@ export default function HomePage() {
       .finally(() => setLoading(false));
   }, []);
 
-  if (loading) return <div className="mt-10 text-center">Loading songs...</div>;
+  if (loading)
+    return (
+      <div className="flex h-full w-full items-center justify-center">
+        <span className="loading loading-spinner loading-xl text-primary" />
+      </div>
+    );
 
   return (
     <div className="flex h-full flex-col">
