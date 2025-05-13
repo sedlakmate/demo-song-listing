@@ -1,31 +1,20 @@
-import { useEffect, useState } from 'react';
-import type { Song } from '../../types/song';
+import { useState } from 'react';
 
 export function SongModal({
   open,
   onClose,
   onSubmit,
-  song,
 }: {
   open: boolean;
   onClose: () => void;
   // eslint-disable-next-line no-unused-vars
   onSubmit: (_: { name: string; artist: string; file: File }) => void;
-  song?: Song;
 }) {
   const [form, setForm] = useState({
     name: '',
     artist: '',
     file: null as File | null,
   });
-
-  useEffect(() => {
-    if (song) {
-      setForm({ name: song.name, artist: song.artist, file: null });
-    } else {
-      setForm({ name: '', artist: '', file: null });
-    }
-  }, [song]);
 
   return (
     <>
@@ -39,12 +28,15 @@ export function SongModal({
       <div className="modal">
         <div className="modal-box relative">
           <button
-            onClick={onClose}
+            onClick={() => {
+              setForm({ name: '', artist: '', file: null });
+              onClose();
+            }}
             className="btn btn-sm btn-circle btn-ghost absolute top-2 right-2"
           >
             ✕
           </button>
-          <h3 className="mb-4 text-lg font-bold">{song ? 'Edit Song' : 'Add New Song'}</h3>
+          <h3 className="mb-4 text-lg font-bold">Add New Song</h3>
 
           <fieldset className="space-y-4">
             <div>
@@ -81,9 +73,6 @@ export function SongModal({
                 className="file-input file-input-bordered w-full"
                 onChange={(e) => setForm({ ...form, file: e.target.files?.[0] ?? null })}
               />
-              {song && (
-                <p className="mt-1 text-xs text-gray-500">(Leave blank to keep existing image)</p>
-              )}
             </div>
           </fieldset>
 
@@ -95,11 +84,14 @@ export function SongModal({
                 if (coverImage === null) {
                   // Submit button is not active unless file is provided. This branch should never be reached.
                   console.warn('File is null');
-                } else return onSubmit({ ...form, file: coverImage });
+                } else {
+                  onSubmit({ ...form, file: coverImage });
+                  setForm({ name: '', artist: '', file: null });
+                }
               }}
-              disabled={!form.name || !form.artist || (form.file === null && !song)}
+              disabled={!form.name || !form.artist || form.file === null}
             >
-              {song ? 'Save Changes' : 'Add Song'}
+              Add Song
             </button>
           </div>
         </div>
