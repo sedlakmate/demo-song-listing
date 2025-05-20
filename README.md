@@ -14,9 +14,8 @@ Working with the music itself is not part of the project ¯\\_(ツ)_/¯
 
 ## Notes
 
-This project was created for a third-party job interview. The original instructions defined core features and some nice-to-have extras.  
-The proposed time limit was very short for a complete implementation.  
-However, considering the depth and scope of the work, it’s clear — and hopefully understood — that this project couldn’t realistically be completed in just 4 hours. Maybe a proof-of-concept version of the core features, sure. But this submission goes well beyond that.
+This project was created for a job interview. The original instructions defined core features and some nice-to-have extras.  
+This implementation aims to accomplish all the requirements and bonus points.
 
 Tasks completed:
 
