@@ -1,14 +1,14 @@
 # Music library demo app 
 ♪~ ᕕ(ᐛ)ᕗ
 
-![QA Workflow](https://github.com/szedlakmate/demo-song-listing/actions/workflows/push-qa.yml/badge.svg)
+![QA Workflow](https://github.com/sedlakmate/demo-song-listing/actions/workflows/push-qa.yml/badge.svg)
 
 This is a simple music library demo app that allows users to view a list of **song titles**, **artists**, and **album covers**.  
 Working with the music itself is not part of the project ¯\\_(ツ)_/¯
 
 ## Links
 
-- [Repository](https://github.com/szedlakmate/demo-song-listing)
+- [Repository](https://github.com/sedlakmate/demo-song-listing)
 - [Live demo](https://demo-music-list.up.railway.app/)
 - [API documentation](https://demo-song-listing-production.up.railway.app/api-docs/)
 
@@ -100,7 +100,7 @@ The project should run smoothly on Linux, macOS, and Windows (although I only te
 
 1. Install `npm`, `yarn`, `docker`, and `docker-compose` if not already installed
 2. Install `turbo` globally: `npm install -g turbo`
-3. Clone the [repository](https://github.com/szedlakmate/demo-song-listing)
+3. Clone the [repository](https://github.com/sedlakmate/demo-song-listing)
 4. Navigate to the root directory
 5. Install dependencies: `yarn install`
 6. Build the project: `turbo build`
