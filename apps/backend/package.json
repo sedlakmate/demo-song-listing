@@ -4,8 +4,7 @@
   "private": true,
   "packageManager": "yarn@4.6.0",
   "scripts": {
-    "build": "tsc",
-    "postbuild": "cp src/api-routes/openapi.yaml dist/api-routes/.",
+    "build": "tsc && mkdir -p dist/api-routes && cp -v src/api-routes/openapi.yaml dist/api-routes/openapi.yaml && echo 'Build complete. Verifying openapi.yaml...' && ls -la dist/api-routes/",
     "clean": "rm -rf dist",
     "dev": "nodemon --exec ts-node ./src/index.ts",
     "lint": "tsc --noEmit && eslint \"src/**/*.ts*\" --max-warnings 0",

@@ -31,7 +31,12 @@ RUN chmod -R 755 /app/packages/logger
 
 # Build workspaces in correct order
 RUN yarn workspace @repo/logger build
+
+# Build backend (which includes postbuild script to copy openapi.yaml)
 RUN yarn workspace backend build
+
+# Verify the openapi.yaml file was copied
+RUN ls -la /app/apps/backend/dist/api-routes/
 
 # ---- Dev mode (used for local development with volumes) ----
 FROM base AS dev
