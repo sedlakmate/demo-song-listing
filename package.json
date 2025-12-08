@@ -16,9 +16,9 @@
     "test": "turbo run test"
   },
   "devDependencies": {
-    "eslint-plugin-prettier": "^5.4.0",
-    "prettier": "^3.5.3",
-    "turbo": "^2.5.3"
+    "eslint-plugin-prettier": "^5.5.4",
+    "prettier": "^3.7.4",
+    "turbo": "^2.6.3"
   },
   "packageManager": "yarn@4.6.0",
   "engines": {
