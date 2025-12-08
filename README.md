@@ -96,22 +96,74 @@ There was an implicit expectation that anyone should be able to run the project 
 
 ### Local development
 
-The project should run smoothly on Linux, macOS, and Windows (although I only tested it on Linux).
+The project uses **corepack** to manage the Yarn package manager. This ensures all developers and CI/CD environments use the same Yarn version (4.6.0).
 
-1. Install `npm`, `yarn`, `docker`, and `docker-compose` if not already installed
-2. Install `turbo` globally: `npm install -g turbo`
-3. Clone the [repository](https://github.com/sedlakmate/demo-song-listing)
-4. Navigate to the root directory
-5. Install dependencies: `yarn install`
-6. Build the project: `turbo build`
-7. Start the app: `docker-compose up -d`
+#### Prerequisites
 
-At this point, the app should be running locally.
+1. **Node.js** (version 20.0.0 or higher) - [Download](https://nodejs.org/)
+2. **corepack** - Comes bundled with Node.js 16.9.0+, but needs to be enabled:
+   ```bash
+   corepack enable
+   ```
+3. **Docker** and **docker-compose** for running the full application stack
 
-File watchers run in the background, so any changes to the code should be reflected in both frontend and backend.
+#### Setup
 
-- Frontend: `http://localhost:3000`
-- Backend: `http://localhost:3001`
+1. Clone the [repository](https://github.com/sedlakmate/demo-song-listing)
+   ```bash
+   git clone https://github.com/sedlakmate/demo-song-listing.git
+   cd demo-song-listing
+   ```
+
+2. Enable corepack (one-time setup):
+   ```bash
+   corepack enable
+   ```
+   This command sets up Yarn 4.6.0 as managed by corepack.
+
+3. Install dependencies using Yarn:
+   ```bash
+   yarn install
+   ```
+
+4. Build the project using Turbo:
+   ```bash
+   yarn build
+   ```
+
+5. Start the application stack:
+   ```bash
+   docker-compose up -d
+   ```
+
+The app should now be running locally:
+
+- **Frontend**: http://localhost:3000
+- **Backend**: http://localhost:3001
+- **Backend API Docs**: http://localhost:3001/api-docs/
+
+#### Yarn and Corepack
+
+This project uses **Yarn 4.6.0** managed through **corepack**. This approach provides:
+
+- **Version consistency**: All team members and CI/CD environments use the exact same Yarn version
+- **No global installation needed**: Corepack handles Yarn installation per project
+- **Automatic updates**: Updating the `packageManager` field in `package.json` automatically updates Yarn
+- **Reduced conflicts**: No NPM cache conflicts or version mismatches across environments
+
+All `package.json` files in this monorepo explicitly declare `"packageManager": "yarn@4.6.0"`.
+
+**Common Yarn commands:**
+- `yarn install` - Install dependencies
+- `yarn build` - Build all packages using Turbo
+- `yarn dev` - Start development mode with file watchers
+- `yarn lint` - Run linting across all packages
+- `yarn type-check` - Run TypeScript type checking
+- `yarn test` - Run unit tests
+
+For more information on Yarn, visit [yarnpkg.com](https://yarnpkg.com/).
+
+File watchers run in the background during `yarn dev`, so code changes are reflected in both frontend and backend automatically.
 
 ### Deployment
 

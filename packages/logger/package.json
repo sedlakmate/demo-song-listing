@@ -2,6 +2,7 @@
   "name": "@repo/logger",
   "version": "0.0.0",
   "private": true,
+  "packageManager": "yarn@4.6.0",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [
