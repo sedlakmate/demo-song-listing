@@ -3,6 +3,7 @@ import YAML from "yaml";
 import * as fs from "node:fs";
 import { log } from "@repo/logger";
 import multer, { FileFilterCallback } from "multer";
+import type { Express } from "express-serve-static-core";
 
 export function getApiDoc(fileName: string) {
   try {

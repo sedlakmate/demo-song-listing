@@ -7,7 +7,6 @@ export function SongModal({
 }: {
   open: boolean;
   onClose: () => void;
-  // eslint-disable-next-line no-unused-vars
   onSubmit: (_: { name: string; artist: string; file: File }) => void;
 }) {
   const [form, setForm] = useState({
