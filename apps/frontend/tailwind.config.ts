@@ -5,6 +5,7 @@ const config: Config = {
   theme: {
     extend: {},
   },
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
   plugins: [require('daisyui')],
   // @ts-expect-error: daisyui is injected by the plugin
   daisyui: {
