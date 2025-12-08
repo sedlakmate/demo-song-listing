@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "license": "MIT",
+  "packageManager": "yarn@4.6.0",
   "files": [
     "dist/jest-preset.js"
   ],
@@ -13,5 +14,8 @@
   "dependencies": {
     "jest": "^29.7.0",
     "ts-jest": "^29.2.5"
+  },
+  "devDependencies": {
+    "typescript": "5.8.3"
   }
 }

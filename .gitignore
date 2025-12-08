@@ -62,3 +62,4 @@ yarn-error.log*
 .turbo
 /packages/logger/tsconfig.tsbuildinfo
 /apps/backend/uploads/**/*
+/.yarn/install-state.gz

@@ -2,6 +2,7 @@
 FROM node:22-alpine AS base
 WORKDIR /app
 RUN apk add --no-cache libc6-compat
+RUN corepack enable
 
 # ---- Builder for pruning and installing ----
 FROM base AS builder
